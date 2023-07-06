@@ -10,12 +10,12 @@ export default new Command({
     options: [
         {
             name: "lista",
-            description: "Veja os itens disponíveis.",
+            description: "[💸 Economia ] Veja os itens disponíveis.",
             type: ApplicationCommandOptionType.Subcommand,
         },
         {
             name: "comprar",
-            description: 'Comprar algum item na loja.',
+            description: '[💸 Economia ] Comprar algum item na loja.',
             type: ApplicationCommandOptionType.Subcommand,
             options: [
                 {
@@ -90,6 +90,41 @@ export default new Command({
                             member.money -= shop.shop[0].work_reduce_cost;
                             member.workCooldown -= shop.shop[0].work_reduce_cooldown;
                             member.save();
+
+                            interaction.editReply({
+                                embeds: [{ title: `Compra efetuada com sucesso`, description: `Você comprou tempo de trabalho e agora seu tempo de trabalho será menor.`, color: Colors.Blue, author: { name: interaction.user.username } }]
+                            })
+                        }
+                    }
+
+                    // Rob time
+                    if (args.toLowerCase() == 'tempo-de-roubo'){
+                        if (member?.robCooldown_time as number > shop.shop[0].max_crime_cooldown_time) return interaction.editReply('Você já tem o máximo de tempo em crime.')
+                        if (member?.money as number < shop.shop[0].crime_reduce_cost) return interaction.editReply(`Você precisa de R$${FormatUtils.FormatNumber(shop.shop[0].crime_reduce_cost)}.`);
+
+                        if (member){
+                            member.money -= shop.shop[0].crime_reduce_cost;
+                            member.robCooldown -= shop.shop[0].reduce_crime_cooldown;
+                            member.save();
+
+                            interaction.editReply({
+                                embeds: [{ title: `Compra efetuada com sucesso`, description: `Você comprou tempo de roubo e agora o seu tempo de roubo será menor.`, color: Colors.Blue, author: { name: interaction.user.username } }]
+                            })
+                        }
+                    }
+
+                    if (args.toLowerCase() == 'arma'){
+                        if (member?.rob) return interaction.editReply('Você já tem uma arma.');
+                        if (member?.money as number < shop.shop[0].gun_cost)return interaction.editReply(`Você precisa de R$${FormatUtils.FormatNumber(shop.shop[0].gun_cost)}.`);
+
+                        if (member){
+                            member.rob = true;
+                            member.money -= shop.shop[0].gun_cost;
+                            member.save();
+
+                            interaction.editReply({
+                                embeds: [{ title: `Compra efetuada com sucesso.`, description: `Você comprou uma arma e agora você pode roubar.`, color: Colors.Blue }]
+                            })
                         }
                     }
                 }
