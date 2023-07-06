@@ -1,5 +1,5 @@
 
-# Yumeko
+# Yumeko (Desenvolvimento)
 
 Um bot de economia, diversão e outros, feito para proporcionar um excelente entretenimento!
 ## Ferramentas usadas:
