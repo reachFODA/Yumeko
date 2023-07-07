@@ -113,9 +113,10 @@ export default new Command({
                         }
                     }
 
+                    // Gun
                     if (args.toLowerCase() == 'arma'){
                         if (member?.rob) return interaction.editReply('Você já tem uma arma.');
-                        if (member?.money as number < shop.shop[0].gun_cost)return interaction.editReply(`Você precisa de R$${FormatUtils.FormatNumber(shop.shop[0].gun_cost)}.`);
+                        if (member?.money as number < shop.shop[0].gun_cost) return interaction.editReply(`Você precisa de R$${FormatUtils.FormatNumber(shop.shop[0].gun_cost)}.`);
 
                         if (member){
                             member.rob = true;
@@ -128,9 +129,6 @@ export default new Command({
                         }
                     }
                 }
-            default:
-                break;
         }
-
     },
 });

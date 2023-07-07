@@ -1,3 +1,4 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { Client, IntentsBitField, BitFieldResolvable, GatewayIntentsString, Partials, Collection, ApplicationCommandDataResolvable, ClientEvents } from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
@@ -7,7 +8,7 @@ import { EventType } from "./types/Event";
 import mongoose from "mongoose";
 dotenv.config();
 
-const fileCondition = (fileName: String) => fileName.endsWith(".ts") || fileName.endsWith(".js");
+const fileCondition = (fileName: string) => fileName.endsWith(".ts") || fileName.endsWith(".js");
 
 export class ExtendedClient extends Client {
     public commands: Collection<string, CommandType> = new Collection();
@@ -40,7 +41,7 @@ export class ExtendedClient extends Client {
             })
     }
     private registerModules() {
-        const slashCommands: Array<ApplicationCommandDataResolvable> = new Array();
+        const slashCommands: Array<ApplicationCommandDataResolvable> = [];
 
         const commandsPath = path.join(__dirname, "..", "commands")
 
@@ -87,9 +88,9 @@ export class ExtendedClient extends Client {
         const MONGO_URI = process.env.MONGO_URI;
         if (!MONGO_URI) return console.log(`🍃 Mongo URI not found`.yellow);
         mongoose
-          .connect(MONGO_URI)
-          .then(() => console.log(`🍃 MongoDB connection has been established.`.green))
-          .catch(() => console.log(`🍃 MongoDB connection has failed.`.red));
-        
+            .connect(MONGO_URI)
+            .then(() => console.log(`🍃 MongoDB connection has been established.`.green))
+            .catch(() => console.log(`🍃 MongoDB connection has failed.`.red));
+
     }
 }

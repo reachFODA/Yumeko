@@ -32,6 +32,10 @@ export class FormatUtils {
     public static FormatNumber(number: number): string {
       return number.toLocaleString('pt-BR');
     }
+
+    public static calculateLevelXp(level: number): number {
+      return 100 * level || 1;
+    }
       
     public static formatTime(ms: number): TimeFormat {
         const seconds = Math.floor(ms / 1000);

@@ -1,4 +1,5 @@
-import { ApplicationCommandType, Colors, EmbedBuilder } from "discord.js";
+/* eslint-disable no-useless-escape */
+import { ApplicationCommandOptionType, ApplicationCommandType, Colors, EmbedBuilder } from "discord.js";
 import { Command } from "../../structs/types/Commands";
 import User from "../../schemas/userSchema";
 import { FormatUtils } from "../../utils/FormatUtils";
@@ -7,25 +8,53 @@ export default new Command({
     name: 'carteira',
     description: '[💸 Economia ] Veja quantos dinheiro você tem.',
     type: ApplicationCommandType.ChatInput,
-    async execute({ interaction }){
+    options: [{
+        name: 'usuário',
+        description: 'Selecione um usuário',
+        type: ApplicationCommandOptionType.User
+    }],
+    async execute({ interaction, options }){
 
         await interaction.deferReply({ ephemeral: false })
 
-        const member = await User.findOne({
-            userId: interaction.user.id,
-            guildId: interaction.guild?.id
-        })
+        const user = options.getUser("usuário") || interaction.user;
+        const mention = user ? user.id : interaction.user.id;
+        const userName = user ? user.username : interaction.user.username;
+        const avatarURL = user ? user.displayAvatarURL({ extension: "png", size: 512 }) : interaction.user.displayAvatarURL({ extension: "png", size: 512 });
+
+        const member = await User.findOne({ userId: mention, guildId: interaction.guild?.id })
+
+        const bot = user ? user.bot : interaction.user.bot;
+        if (bot) return interaction.editReply("Você não pode ver o dinheiro dos bots.");
 
         if (member) {
 
         const embed = new EmbedBuilder({
-            title: `Carteira de ${interaction.user.username}`,
-            description: `
-            \`💸 Dinheiro: \`${FormatUtils.FormatNumber(member?.money)}
-            \`🏦 Banco: \`${FormatUtils.FormatNumber(member?.bank)}
-            \`💰 Total: \`${FormatUtils.FormatNumber(member?.bank + member?.money)}`,
-            color: Colors.Blue
-        })
+            title: `Carteira de ${userName}`,
+            description: `Utilize \`/rank money\` para ver o ranking de money.`,
+            color: Colors.Blue,
+            author: { name: userName, iconURL: avatarURL },
+            thumbnail: { url: interaction.guild?.iconURL() as string },
+            timestamp: new Date(),
+            fields:
+            [
+                {
+                    name: '\`💸 Dinheiro:\`',
+                    value: `R$${FormatUtils.FormatNumber(member?.money)}`,
+                    inline: true
+                },
+                {
+                    name: '\`🏦 Banco:\`',
+                    value: `R$${FormatUtils.FormatNumber(member?.bank)}`,
+                    inline: true
+                },
+                {
+                    name: '\`💰 Total:\`',
+                    value: `R$${FormatUtils.FormatNumber(member?.bank + member?.money)}`,
+                    inline: true
+                }
+            ]
+        });
 
         await interaction.editReply({
             embeds: [embed]
