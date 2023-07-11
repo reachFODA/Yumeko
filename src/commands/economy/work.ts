@@ -8,7 +8,8 @@ export default new Command({
     name: 'trabalhar',
     description: '[💸 Economia ] Ganhe dinheiro trabalhando.',
     type: ApplicationCommandType.ChatInput,
-    async execute({ interaction, options }) {
+    
+    async execute({ interaction }) {
 
         await interaction.deferReply({ ephemeral: false });
 

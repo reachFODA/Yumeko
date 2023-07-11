@@ -44,18 +44,18 @@ export default new Command({
 
                     const pages = [];
                     for (let i = 0; i < pagesNum; i++) {
-                        const str = userStrings.slice(i * 10, i * 10 + 10).join("");
-
+                        const str = userStrings.slice(i * 10, i * 10 + 10).join("\n"); // Adiciona uma nova linha entre os usuários
+                    
                         const embed = new EmbedBuilder({
                             author: { name: `🏆 - ${interaction.guild?.name} Top Money`, iconURL: interaction.guild?.iconURL({ forceStatic: true }) as string },
-                            thumbnail: { url: interaction.guild?.iconURL({  forceStatic: true }) as string },
-                            description: `${str == "" ? "  Sem usuários" : "\n" + str}`,
+                            thumbnail: { url: interaction.guild?.iconURL({ forceStatic: true }) as string },
+                            description: `${str == "" ? "Sem usuários" : str}`, // Remove a nova linha em branco se não houver usuários
                             color: Colors.Blue,
                             footer: { text: `Página • ${i + 1}/${pagesNum} | ${member.length} • Total Membros` }
-                        })
-
-                        pages.push(embed)
-                    }
+                        });
+                    
+                        pages.push(embed);
+                    }                    
 
                     await PageUtils.setPage(interaction, pages, pagesNum)
                 }

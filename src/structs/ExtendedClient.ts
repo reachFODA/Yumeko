@@ -1,4 +1,4 @@
-/* eslint-disable no-unsafe-optional-chaining */
+
 import { Client, IntentsBitField, BitFieldResolvable, GatewayIntentsString, Partials, Collection, ApplicationCommandDataResolvable, ClientEvents } from "discord.js";
 import dotenv from "dotenv";
 import fs from "fs";
@@ -72,6 +72,7 @@ export class ExtendedClient extends Client {
 
             fs.readdirSync(`${eventsPath}/${local}`).filter(fileCondition)
                 .forEach(async fileName => {
+                    // eslint-disable-next-line no-unsafe-optional-chaining
                     const { name, once, execute }: EventType<keyof ClientEvents> = (await import(`../events/${local}/${fileName}`))?.default
 
                     try {

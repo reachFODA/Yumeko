@@ -29,7 +29,7 @@ export default new Command({
     ],
     async execute({ interaction, options }) {
 
-        const subCommand = options.getSubcommand();
+        const subCommand = options.getSubcommand(true);
 
         switch (subCommand) {
             case "lista":
