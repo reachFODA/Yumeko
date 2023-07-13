@@ -6,14 +6,14 @@ import User from "../../schemas/userSchema";
 
 export default new Command({
     name: 'ranking',
-    description: '[🕴️Social] Veja os rankings.',
+    description: '[🧑 Social] Veja os rankings.',
     type: ApplicationCommandType.ChatInput,
     options: [
         {
             name: 'money',
             description: '[💸 Economia ] Veja o top money.',
             type: ApplicationCommandOptionType.Subcommand
-        }
+        },
     ],
     async execute({ interaction, options, client }) {
 

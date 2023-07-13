@@ -16,5 +16,6 @@ export default new Event({
         command.execute({ client, interaction, options })
 
         DatabaseUtils.registerUser(interaction.guild?.id as string, interaction.user.id)
+
     }
 })

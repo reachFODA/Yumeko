@@ -5,6 +5,8 @@ interface IUser extends Document {
     userId: string;
     money: number;
     bank: number;
+    married: boolean;
+    married_to: string;
     rob: boolean;
     robCooldown: number;
     workCooldown: number;
@@ -19,6 +21,8 @@ const userSchema = new Schema<IUser>({
     userId: String,
     money: Number,
     bank: Number,
+    married: Boolean,
+    married_to: String,
     rob: Boolean,
     robCooldown: Number,
     robCooldown_time: Number,
