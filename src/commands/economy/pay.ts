@@ -2,6 +2,7 @@ import { ApplicationCommandOptionType, ApplicationCommandType, Colors, EmbedBuil
 import { Command } from '../../structs/types/Commands';
 import { FormatUtils } from '../../utils/FormatUtils';
 import User from '../../schemas/userSchema';
+import { DatabaseUtils } from '../../utils/DatabaseUtils';
 
 export default new Command({
     name: 'pagar',
@@ -31,6 +32,8 @@ export default new Command({
         if (!user || !amount) {
             return interaction.editReply('Por favor, forneça um usuário e uma quantidade válida para pagar.');
         }
+
+        DatabaseUtils.registerUser(interaction.guild?.id as string, user.id as string)
 
         const bot = user ? user.bot : interaction.user.bot;
         if (bot) return interaction.editReply("Você não pode pagar os bots.");

@@ -13,11 +13,15 @@ export class DatabaseUtils {
                 money: 0,
                 bank: 0,
                 rob: false,
+                married: false,
+                married_to: "",
+                rep: 0,
                 robCooldown: 0,
                 robCooldown_time: 0,
                 workCooldown: 0,
                 workCooldown_time: 0,
                 dailyCooldown: 0,
+                repCooldown: 0,
                 booster: 0,
             });
             await newDatabase.save();

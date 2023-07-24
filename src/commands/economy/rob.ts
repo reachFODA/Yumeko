@@ -26,8 +26,6 @@ export default new Command({
 
         if (user?.id === interaction.user.id) return interaction.editReply("Você não pode roubar a si mesmo.");
         if (user?.bot) return interaction.editReply("Você não pode roubar um bot.");
-
-
         
         if (!targetUser) {
             return interaction.editReply({

@@ -5,7 +5,7 @@ import Level from "../../schemas/levelSchema";
 import Work from "../../schemas/workSchema";
 
 export default new Command({
-    name: 'trabalho',
+    name: 'trabalhos',
     description: '[💸 Economia ] Selecione o trabalho.',
     type: ApplicationCommandType.ChatInput,
     async execute({ interaction }) {

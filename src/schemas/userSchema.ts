@@ -7,9 +7,11 @@ interface IUser extends Document {
     bank: number;
     married: boolean;
     married_to: string;
+    rep: number;
     rob: boolean;
     robCooldown: number;
     workCooldown: number;
+    repCooldown: number;
     dailyCooldown: number;
     robCooldown_time: number;
     workCooldown_time: number;
@@ -23,12 +25,14 @@ const userSchema = new Schema<IUser>({
     bank: Number,
     married: Boolean,
     married_to: String,
+    rep: Number,
     rob: Boolean,
     robCooldown: Number,
     robCooldown_time: Number,
     dailyCooldown: Number,
     workCooldown_time: Number,
     workCooldown: Number,
+    repCooldown: Number,
     booster: Number,
 });
 

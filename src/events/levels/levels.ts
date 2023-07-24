@@ -1,6 +1,7 @@
 import { Event } from "../../structs/types/Event";
 import { FormatUtils } from "../../utils/FormatUtils";
 import Level from "../../schemas/levelSchema";
+import { DatabaseUtils } from "../../utils/DatabaseUtils";
 
 function getRandomXp(min: number, max: number): number {
     min = Math.ceil(min);
@@ -12,6 +13,8 @@ export default new Event({
     name: "messageCreate",
     async execute(message) {
         if (!message.guild || message.author.bot) return;
+
+        DatabaseUtils.registerUser(message.guild.id as string, message.author.id as string)
 
         const xpToGive = getRandomXp(5, 15);
 

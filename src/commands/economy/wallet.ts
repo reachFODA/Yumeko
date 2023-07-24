@@ -1,8 +1,9 @@
 /* eslint-disable no-useless-escape */
 import { ApplicationCommandOptionType, ApplicationCommandType, Colors, EmbedBuilder } from "discord.js";
 import { Command } from "../../structs/types/Commands";
-import User from "../../schemas/userSchema";
 import { FormatUtils } from "../../utils/FormatUtils";
+import { DatabaseUtils } from "../../utils/DatabaseUtils";
+import User from "../../schemas/userSchema";
 
 export default new Command({
     name: 'carteira',
@@ -23,6 +24,8 @@ export default new Command({
         const avatarURL = user ? user.displayAvatarURL({ extension: "png", size: 512 }) : interaction.user.displayAvatarURL({ extension: "png", size: 512 });
 
         const member = await User.findOne({ userId: mention, guildId: interaction.guild?.id })
+
+        DatabaseUtils.registerUser(interaction.guild?.id as string, mention)
 
         const bot = user ? user.bot : interaction.user.bot;
         if (bot) return interaction.editReply("Você não pode ver o dinheiro dos bots.");
