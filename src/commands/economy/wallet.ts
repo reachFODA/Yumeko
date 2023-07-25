@@ -23,9 +23,9 @@ export default new Command({
         const userName = user ? user.username : interaction.user.username;
         const avatarURL = user ? user.displayAvatarURL({ extension: "png", size: 512 }) : interaction.user.displayAvatarURL({ extension: "png", size: 512 });
 
-        const member = await User.findOne({ userId: mention, guildId: interaction.guild?.id })
+        DatabaseUtils.registerUser(interaction.guild?.id as string, user.id)
 
-        DatabaseUtils.registerUser(interaction.guild?.id as string, mention)
+        const member = await User.findOne({ userId: mention, guildId: interaction.guild?.id })
 
         const bot = user ? user.bot : interaction.user.bot;
         if (bot) return interaction.editReply("Você não pode ver o dinheiro dos bots.");

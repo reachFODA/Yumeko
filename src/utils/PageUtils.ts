@@ -31,19 +31,22 @@ export class PageUtils {
     const collector = message.createMessageComponentCollector({ filter: i => i.user.id === user.id, time: 60000 });
 
     collector.on('collect', async (buttonInteraction) => {
-      if (!buttonInteraction.deferred) await buttonInteraction.deferUpdate();
-
+      if (buttonInteraction.deferred || buttonInteraction.replied) {
+        return;
+      }
+    
+      await buttonInteraction.deferUpdate();
+    
       if (buttonInteraction.customId === 'previousPage') {
         currentPage--;
       } else if (buttonInteraction.customId === 'nextPage') {
         currentPage++;
       }
 
-      // Atualiza os botões de página com base na página atual
       actionRow.components[0].setDisabled(currentPage === 0);
       actionRow.components[1].setDisabled(currentPage === pageCount - 1);
-
-      await buttonInteraction.update({ embeds: [pages[currentPage]], components: [actionRow] });
+    
+      await buttonInteraction.editReply({ embeds: [pages[currentPage]], components: [actionRow] });
     });
   }
 }
