@@ -42,7 +42,7 @@ export default new Command({
 
         if (member) {
             const cooldownReduction = member.workCooldown_time || 0; // Redução de cooldown da loja em segundos
-            const baseCooldown = 24 * 60 * 60 * 1000; // Cooldown base de 1 dia em milissegundos
+            const baseCooldown = 12 * 60 * 60 * 1000; // Cooldown base de 1 dia em milissegundos
             const adjustedCooldown = baseCooldown - cooldownReduction * 1000; // Cooldown ajustado após a redução
 
             member.workCooldown = Date.now() + adjustedCooldown;

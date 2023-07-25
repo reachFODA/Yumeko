@@ -33,22 +33,24 @@ export default new Event({
                     level.xp = 0;
                     level.level += 1;
 
+                    await level.save().catch((e) => {
+                        console.log(`Error saving updated level ${e}`);
+                        return;
+                    });
+
                     setTimeout(() => {
                         message.channel
                             .send({
                                 content: `Parabéns ${message.member}, você agora é **level ${level.level}**.`,
                             })
                             .then((mg) => setTimeout(mg.delete.bind(mg), 10000));
-                        message.delete();
-
-                        return;
                     }, 5000);
+                } else {
+                    await level.save().catch((e) => {
+                        console.log(`Error saving updated level ${e}`);
+                        return;
+                    });
                 }
-
-                await level.save().catch((e) => {
-                    console.log(`Error saving updated level ${e}`);
-                    return;
-                });
             } else {
                 const newLevel = new Level({
                     userId: message.author.id,

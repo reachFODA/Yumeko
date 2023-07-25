@@ -5,6 +5,7 @@ import { DatabaseUtils } from "../../utils/DatabaseUtils";
 import User from "../../schemas/userSchema";
 import Work from "../../schemas/workSchema";
 import Level from "../../schemas/levelSchema";
+import Family from "../../schemas/familySchema";
 
 export default new Command({
     name: 'perfil',
@@ -31,6 +32,7 @@ export default new Command({
         const member = await User.findOne({ guildId: interaction.guild?.id, userId: mention })
         const work = await Work.findOne({ guildId: interaction.guild?.id, userId: mention })
         const level = await Level.findOne({ guildId: interaction.guild?.id, userId: mention })
+        const family = await Family.findOne({ guildId: interaction.guild?.id, familyMembers: mention })
 
         const marryUser = !member?.married_to ? "Não está casado" : client.users.cache.get(member.married_to)?.username;
 
@@ -48,11 +50,11 @@ export default new Command({
             description: `Você está visualizando o perfil de ${userName}`,
             thumbnail: { url: avatarURL },
             fields: [
-              { name: "Nome:", value: `\`${userName}\``, inline: true },
+              { name: "Família:", value: `\`🧑‍🤝‍🧑 ${family ? family.familyName : "Sem família"} (LvL.${family ? family.familyLevel : "0"})\``, inline: true },
               { name: "Booster:", value: `\`${member?.booster}💠\``, inline: true },
               { name: "Casado:", value: `\`💞 ${marryUser}\``, inline: true },
               { name: "Reputação:", value: `\`${member?.rep || 0} ${member?.rep && member?.rep > 1 ? '💎 reputações\`' : '💎 reputação\`'}`, inline: true },
-              { name: "Nível:", value: `\`${level?.level} ⭐ Níveis\``, inline: true },
+              { name: "Nível:", value: `\`${level?.level} ⭐ Level\``, inline: true },
               { name: "Trabalho:", value: `\`${work?.work ?? 'Sem emprego'}\``, inline: true }
             ],
             footer: { text: `Dica: ${tip}` },

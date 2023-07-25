@@ -34,7 +34,7 @@ export default new Command({
 
         const embed = new EmbedBuilder({
             title: `Carteira de ${userName}`,
-            description: `Utilize \`/rank money\` para ver o ranking de money.`,
+            description: `Utilize \`/ranking money\` para ver o ranking de money.`,
             color: Colors.Blue,
             author: { name: userName, iconURL: avatarURL },
             thumbnail: { url: interaction.guild?.iconURL() as string },

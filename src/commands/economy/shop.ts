@@ -40,8 +40,7 @@ export default new Command({
                         title: 'Veja os itens da loja.',
                         description: `
                         \`booster\` R$${FormatUtils.FormatNumber(shop.shop[0].booster_cost)} - Ele vai aumentar sua fonte de renda em x${shop.shop[0].booster}.
-                        \`tempo-de-trabalho\` R$${FormatUtils.FormatNumber(shop.shop[0].work_reduce_cost)} - Ele vai diminuir o tempo de trabalho em ${shop.shop[0].work_reduce_cooldown} segundos.
-                        \`tempo-de-roubo\` R$${FormatUtils.FormatNumber(shop.shop[0].crime_reduce_cost)} - Ele va diminuir o tempo de roubo em ${FormatUtils.formatTime(shop.shop[0].reduce_crime_cooldown)} segundos.
+                        \`tempo-de-trabalho\` R$${FormatUtils.FormatNumber(shop.shop[0].work_reduce_cost)} - Ele vai diminuir o tempo de trabalho em ${shop.shop[0].work_reduce_cooldown} minutos.
                         \`arma\` R$${FormatUtils.FormatNumber(shop.shop[0].gun_cost)} - Com arma você vai conseguir roubar.`,
                         color: Colors.Blue
                     })
@@ -93,22 +92,6 @@ export default new Command({
 
                             interaction.editReply({
                                 embeds: [{ title: `Compra efetuada com sucesso`, description: `Você comprou tempo de trabalho e agora seu tempo de trabalho será menor.`, color: Colors.Blue, author: { name: interaction.user.username } }]
-                            })
-                        }
-                    }
-
-                    // Rob time
-                    if (args.toLowerCase() == 'tempo-de-roubo'){
-                        if (member?.robCooldown_time as number > shop.shop[0].max_crime_cooldown_time) return interaction.editReply('Você já tem o máximo de tempo em crime.')
-                        if (member?.money as number < shop.shop[0].crime_reduce_cost) return interaction.editReply(`Você precisa de R$${FormatUtils.FormatNumber(shop.shop[0].crime_reduce_cost)}.`);
-
-                        if (member){
-                            member.money -= shop.shop[0].crime_reduce_cost;
-                            member.robCooldown -= shop.shop[0].reduce_crime_cooldown;
-                            member.save();
-
-                            interaction.editReply({
-                                embeds: [{ title: `Compra efetuada com sucesso`, description: `Você comprou tempo de roubo e agora o seu tempo de roubo será menor.`, color: Colors.Blue, author: { name: interaction.user.username } }]
                             })
                         }
                     }

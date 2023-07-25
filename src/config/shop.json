@@ -3,14 +3,14 @@
       {
         "booster": 1,
         "booster_max": 5,
-        "booster_cost": 100000,
-        "work_reduce_cost": 100000,
+        "booster_cost": 5000,
+        "work_reduce_cost": 50000,
         "work_reduce_cooldown": 5,
         "work_max_cooldown_time": 29,
-        "crime_reduce_cost": 100000,
+        "crime_reduce_cost": 6000,
         "reduce_crime_cooldown": 5,
         "max_crime_cooldown_time": 59,
-        "gun_cost": 10000
+        "gun_cost": 3000
       }
     ]
   }
