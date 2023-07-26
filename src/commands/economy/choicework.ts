@@ -111,7 +111,7 @@ export default new Command({
                     ephemeral: true,
                 });
                 return;
-            }           
+            }
 
             const options = subInteraction.values[0];
 
@@ -185,9 +185,8 @@ export default new Command({
                                 };
 
                                 await Work.updateOne(
-                                    { userId: subInteraction.user.id },
+                                    { userId: subInteraction.user.id, guildId: subInteraction.guild?.id },
                                     { $set: updateData },
-                                    { upsert: true }
                                 );
 
                                 msg.edit({
@@ -227,9 +226,8 @@ export default new Command({
                                 };
 
                                 await Work.updateOne(
-                                    { userId: subInteraction.user.id },
+                                    { userId: subInteraction.user.id, guildId: subInteraction.guild?.id },
                                     { $set: updateData },
-                                    { upsert: true }
                                 );
 
                                 msg.edit({
@@ -269,9 +267,8 @@ export default new Command({
                                 };
 
                                 await Work.updateOne(
-                                    { userId: subInteraction.user.id },
+                                    { userId: subInteraction.user.id, guildId: subInteraction.guild?.id },
                                     { $set: updateData },
-                                    { upsert: true }
                                 );
 
                                 msg.edit({
@@ -311,9 +308,8 @@ export default new Command({
                                 };
 
                                 await Work.updateOne(
-                                    { userId: subInteraction.user.id },
+                                    { userId: subInteraction.user.id, guildId: subInteraction.guild?.id },
                                     { $set: updateData },
-                                    { upsert: true }
                                 );
 
                                 msg.edit({
@@ -353,9 +349,8 @@ export default new Command({
                                 };
 
                                 await Work.updateOne(
-                                    { userId: subInteraction.user.id },
+                                    { userId: subInteraction.user.id, guildId: subInteraction.guild?.id },
                                     { $set: updateData },
-                                    { upsert: true }
                                 );
 
                                 msg.edit({
